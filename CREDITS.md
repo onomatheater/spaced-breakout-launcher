@@ -20,7 +20,7 @@ Factorio 2.0.77, private launcher. All zips unmodified, licenses inside zips.
 | flib / FluidMustFlow / ChangeInserterDropLane | — | raiguard team | LGPL-3.0 / MIT | portal |
 | PlanetsLib | 1.18.0 | thesixthroc | NO LICENSE — ✅ permission granted by author (unmodified + version labelled) | https://mods.factorio.com/mod/PlanetsLib |
 | snouz x6 + Moshine-assets + long_stack + minimalist-rails | — | snouz | NO LICENSE — need permission | portal / https://github.com/snouz/Moshine |
-| module-category-defaults | 1.3.0 | cackling fiend | NO LICENSE — need permission | portal |
+| module-category-defaults | 1.3.0 | Thremtopod (ex cackling fiend) | MIT - ✅ confirmed by author | portal |
 | bplib / Flare Stack / enhanced-shadows / muluna-graphics / muluna-utility-constants / se-space-trains / SpidertronEnhancements / SpidertronPatrols / tile-upgrade-planner-muluna | - | various | MIT | portal |
 | sb-pitch-black-nights | 1.4.2 | onomatheater (own mod) | MIT | https://github.com/onomatheater/sb-pitch-black-nights |
 | doodle | 0.1.0 | djfariel | MIT | https://mods.factorio.com/mod/doodle |
