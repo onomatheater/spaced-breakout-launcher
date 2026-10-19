@@ -9,7 +9,7 @@ Factorio 2.0.77, private launcher. All zips unmodified, licenses inside zips.
 | Krastorio2-spaced-out | 1.6.21 | Polka_37 | LGPL-3.0 | https://mods.factorio.com/mod/Krastorio2-spaced-out |
 | planet-muluna | 2.2.107 | MeteorSwarm | MIT | https://mods.factorio.com/mod/planet-muluna |
 | maraxsis | 1.31.8 | notnotmelon | MIT | https://mods.factorio.com/mod/maraxsis |
-| Cerys-Moon-of-Fulgora | 4.24.2 | thesixthroc | CC BY-NC-ND 4.0 — need permission | https://mods.factorio.com/mod/Cerys-Moon-of-Fulgora |
+| Cerys-Moon-of-Fulgora | 4.24.2 | thesixthroc | CC BY-NC-ND 4.0 — ✅ permission granted by author (unmodified + version labelled) | https://mods.factorio.com/mod/Cerys-Moon-of-Fulgora |
 | Moshine | 1.1.4 | snouz | NO LICENSE in zip — need permission | https://mods.factorio.com/mod/Moshine |
 | Imersite-Asteroids | 1.2.2 | snakeru | GPL-3.0 | https://mods.factorio.com/mod/Imersite-Asteroids |
 | RampantFixed | 2.02.08 | Dimm2101 / Veden | CC BY-NC 4.0 | https://mods.factorio.com/mod/RampantFixed |
@@ -20,7 +20,7 @@ Factorio 2.0.77, private launcher. All zips unmodified, licenses inside zips.
 | Krastorio2 | 2.0.19 | Linver/Krastor/raiguard | LGPL-3.0 | https://mods.factorio.com/mod/Krastorio2 |
 | k2so-assets | 1.0.5 | Polka_37 | LGPL-2.1 | https://mods.factorio.com/mod/k2so-assets |
 | flib / FluidMustFlow / ChangeInserterDropLane | — | raiguard team | LGPL-3.0 / MIT | portal |
-| PlanetsLib | 1.18.0 | thesixthroc | NO LICENSE — need permission (same author as Cerys) | https://mods.factorio.com/mod/PlanetsLib |
+| PlanetsLib | 1.18.0 | thesixthroc | NO LICENSE — ✅ permission granted by author (unmodified + version labelled) | https://mods.factorio.com/mod/PlanetsLib |
 | snouz x6 + Moshine-assets + long_stack + minimalist-rails | — | snouz | NO LICENSE — need permission | portal / https://github.com/snouz/Moshine |
 | module-category-defaults | 1.3.0 | cackling fiend | NO LICENSE — need permission | portal |
 | bplib / Flare Stack / enhanced-shadows / muluna-graphics / muluna-utility-constants / se-space-trains / SpidertronEnhancements / SpidertronPatrols / tile-upgrade-planner-muluna | - | various | MIT | portal |
