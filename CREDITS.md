@@ -25,6 +25,8 @@ Factorio 2.0.77, private launcher. All zips unmodified, licenses inside zips.
 | module-category-defaults | 1.3.0 | cackling fiend | NO LICENSE — need permission | portal |
 | bplib / Flare Stack / enhanced-shadows / muluna-graphics / muluna-utility-constants / se-space-trains / SpidertronEnhancements / SpidertronPatrols / tile-upgrade-planner-muluna | - | various | MIT | portal |
 | sb-pitch-black-nights | 1.4.2 | onomatheater (own mod) | MIT | https://github.com/onomatheater/sb-pitch-black-nights |
+| doodle | 0.1.0 | djfariel | MIT | https://mods.factorio.com/mod/doodle |
+| extensible-map-overlay-framework | 0.1.0 | djfariel | MIT | https://mods.factorio.com/mod/extensible-map-overlay-framework (required by doodle) |
 | alien-biomes-graphics / space-exploration-graphics / space-exploration-graphics-4 | — | Earendel | FMLDOL (mod packs allowed) | portal + https://discord.gg/earendel + https://www.patreon.com/earendel |
 
 ## NOT in bundle — install separately
