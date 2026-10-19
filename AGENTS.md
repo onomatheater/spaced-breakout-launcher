@@ -29,6 +29,13 @@
 - Live server (`C:\Games\Factorio SERVER`) and game mod folders change ONLY on explicit user approval (`делай рестарт` / `обновляй`). Stage everything, deploy on command.
 - Mods live in their own repos (`sb-pitch-black-nights`, `sb-pack-badge`, ...). This repo holds only the launcher + `manifest.json` + `CREDITS.md`.
 
+## Quality bar
+
+- No hacks: never parse what has authoritative metadata (mod identity comes from `info.json` inside the zip, not from the filename), never duplicate values that already live in `manifest.json` (single source of truth).
+- Never fix a hack with another hack: remove the root cause.
+- UX for humans: progress bar on long operations, buttons disabled while busy, errors as readable messages (RU/EN), UI never freezes.
+- Code is human-readable: small functions, self-explanatory names, comments only where the why isn't obvious.
+
 ## Pack naming
 
 - Pack: SPACED OUTBREAK vX.Y. Guides, badge message and launcher subtitle must carry the same version.
