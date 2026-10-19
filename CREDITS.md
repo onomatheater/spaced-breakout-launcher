@@ -15,9 +15,7 @@ Factorio 2.0.77, private launcher. All zips unmodified, licenses inside zips.
 | RampantFixed | 2.02.08 | Dimm2101 / Veden | CC BY-NC 4.0 | https://mods.factorio.com/mod/RampantFixed |
 | RampantArsenalFork | 1.1.1 | Dimm2101 | GPL-3.0 | https://mods.factorio.com/mod/RampantArsenalFork |
 | nulls-k2so-tweaks | 1.30.1 | NullCascade | MIT | https://mods.factorio.com/mod/nulls-k2so-tweaks |
-| krastorio2_extended_endgame | 2.0.1 | Michael Monch | NO LICENSE — need permission | https://mods.factorio.com/mod/krastorio2_extended_endgame |
 | Krastorio2Assets | 2.0.5 | Linver/Krastor/raiguard | LGPL-3.0 | https://mods.factorio.com/mod/Krastorio2Assets |
-| Krastorio2 | 2.0.19 | Linver/Krastor/raiguard | LGPL-3.0 | https://mods.factorio.com/mod/Krastorio2 |
 | k2so-assets | 1.0.5 | Polka_37 | LGPL-2.1 | https://mods.factorio.com/mod/k2so-assets |
 | flib / FluidMustFlow / ChangeInserterDropLane | — | raiguard team | LGPL-3.0 / MIT | portal |
 | PlanetsLib | 1.18.0 | thesixthroc | NO LICENSE — ✅ permission granted by author (unmodified + version labelled) | https://mods.factorio.com/mod/PlanetsLib |
