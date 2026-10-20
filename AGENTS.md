@@ -7,6 +7,12 @@
 - `feat/*` — new features, branched from `dev`, merged back into `dev`.
 - `fix/*` — fixes, branched from `dev`, merged back into `dev`.
 
+## Scope check (before ANY implementation)
+
+- Ask yourself: is this schizophrenia? Does this implementation make sense? Is it in scope?
+- Don't spawn new repos, mods or releases for what belongs inside an existing one.
+- Prefer consolidation over fragmentation: pack-internal things live with the pack (Spaced-Outbreak repo), public standalone things live in their own repo.
+
 ## Planning
 
 - No implementation without approval: agent proposes (what/why/scope), user says go, then code.
