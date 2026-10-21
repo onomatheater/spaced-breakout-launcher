@@ -1,0 +1,23 @@
+{
+  "name": "spaced-breakout-launcher",
+  "version": "1.2.0",
+  "description": "Private launcher for SPACED OUTBREAK Factorio modpack",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "adm-zip": "^0.5.16"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.spacedoutbreak.launcher",
+    "win": { "target": ["nsis"], "icon": "build/icon.ico" },
+    "files": ["main.js", "preload.js", "renderer/**", "../manifest.json", "../credits.json", "../assets/launcher_banner.png", "../assets/logo.png"]
+  }
+}

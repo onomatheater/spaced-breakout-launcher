@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Spaced Breakout</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <h1 id="title">Spaced Breakout</h1>
+  <p id="subtitle"></p>
+  <nav>
+    <button data-view="main">Главная</button>
+    <button data-view="settings">Настройки</button>
+    <button data-view="credits">Credits</button>
+    <select id="lang"><option value="ru">RU</option><option value="en">EN</option></select>
+  </nav>
+</header>
+
+<section id="view-main" class="view">
+  <div class="row">
+    <button id="btnDl"></button>
+    <button id="btnPlay"></button>
+    <button id="btnUpd"></button>
+  </div>
+  <div class="row">
+    <button id="btnFolder"></button>
+    <button id="btnCancel" disabled></button>
+  </div>
+  <progress id="bar" max="1" value="0"></progress>
+  <progress id="barV" max="1" value="0"></progress>
+  <p id="status"></p>
+</section>
+
+<section id="view-settings" class="view hidden">
+  <label>Factorio.exe <span id="gamePath"></span> <button id="btnFind"></button> <button id="btnPickExe"></button></label>
+  <label>Mods <span id="modsPath"></span> <button id="btnPickMods"></button></label>
+  <label>Bundle URL <input id="inpBundle" size="50" /></label>
+  <label>Manifest URL <input id="inpManifest" size="50" /></label>
+  <label>Credits URL <input id="inpCredits" size="50" /></label>
+  <button id="btnSave"></button>
+</section>
+
+<section id="view-credits" class="view hidden">
+  <input id="q" />
+  <div id="credits"></div>
+</section>
+
+<script src="renderer.js"></script>
+</body>
+</html>

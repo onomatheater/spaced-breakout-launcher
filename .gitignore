@@ -1,2 +1,10 @@
-launcher-config.json
-
+﻿launcher-config.json
+*.zip
+node_modules/
+electron/node_modules/
+dist/
+electron/dist/
+*.exe
+*.msi
+*.AppImage
+.env
