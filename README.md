@@ -19,8 +19,3 @@ Copy-Item launcher-config.example.json launcher-config.json
 # edit launcher-config.json: set bundle_url
 powershell -ExecutionPolicy Bypass -File launcher.ps1
 ```
-
-## Dark Nights
-
-`DarkNight 2.0.0` by Skrundz (Skrunix license — no redistribution right) is **NOT** in the bundle.
-The pack ships our own clean-room replacement instead: `sb-pitch-black-nights` ([repo](https://github.com/onomatheater/sb-pitch-black-nights), [portal](https://mods.factorio.com/mod/sb-pitch-black-nights)).
