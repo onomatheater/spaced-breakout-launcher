@@ -5,10 +5,8 @@ const { spawn } = require("child_process");
 const fs = require("fs");
 const fsp = fs.promises;
 const path = require("path");
-const crypto = require("crypto");
-const https = require("https");
-const http = require("http");
 const AdmZip = require("adm-zip");
+const { fetchJson, downloadFile, sha1File } = require("./lib/net");
 
 const ROOT = path.join(__dirname, "..");
 const SHIPPED_MANIFEST = path.join(ROOT, "manifest.json");
@@ -64,61 +62,7 @@ function resolveGameExe(cfg) {
   return null;
 }
 
-// --- update --------------------------------------------------------------
-
-function fetchJson(url) {
-  return new Promise((resolve, reject) => {
-    const lib = url.startsWith("https") ? https : http;
-    lib
-      .get(url, (res) => {
-        if (res.statusCode !== 200) return reject(new Error("HTTP " + res.statusCode));
-        let s = "";
-        res.on("data", (c) => (s += c));
-        res.on("end", () => resolve(JSON.parse(s)));
-      })
-      .on("error", reject);
-  });
-}
-
-// --- download ------------------------------------------------------------
-
-function downloadFile(url, dest, onProg) {
-  return new Promise((resolve, reject) => {
-    cancelFlag = false;
-    const lib = url.startsWith("https") ? https : http;
-    const file = fs.createWriteStream(dest);
-    lib
-      .get(url, (res) => {
-        if (res.statusCode !== 200) return reject(new Error("HTTP " + res.statusCode));
-        const total = Number(res.headers["content-length"] || 0);
-        let got = 0;
-        const t0 = Date.now();
-        res.on("data", (c) => {
-          if (cancelFlag) {
-            res.destroy();
-            file.close();
-            return reject(new Error("cancelled"));
-          }
-          got += c.length;
-          const dt = Math.max(1, Date.now() - t0);
-          onProg({ phase: "download", ratio: total ? got / total : 0, got, total, bps: (got / dt) * 1000 });
-        });
-        res.pipe(file);
-        file.on("finish", () => resolve({ got, total }));
-      })
-      .on("error", reject);
-  });
-}
-
-function sha1File(p) {
-  return new Promise((resolve, reject) => {
-    const h = crypto.createHash("sha1");
-    fs.createReadStream(p)
-      .on("data", (c) => h.update(c))
-      .on("end", () => resolve(h.digest("hex")))
-      .on("error", reject);
-  });
-}
+// --- download (resume + retry live in lib/net) ---------------------------------
 
 function modNameFromZip(zipPath) {
   const z = new AdmZip(zipPath);
@@ -144,6 +88,7 @@ async function installBundle(bundleZip, manifest, modsDir, wantOptional, onProg)
     modList = JSON.parse(await fsp.readFile(mlPath, "utf-8"));
   } catch {}
   await fsp.copyFile(mlPath, mlPath + ".bak").catch(() => {});
+  await fsp.copyFile(path.join(modsDir, "mod-settings.dat"), path.join(modsDir, "mod-settings.dat.bak")).catch(() => {});
   const known = new Set(modList.mods.map((m) => m.name));
 
   let i = 0;
@@ -225,8 +170,9 @@ ipcMain.handle("download", async () => {
   const cfg = await readUserConfig();
   if (!cfg.bundle_url) throw new Error("no-bundle-url");
   const tmp = path.join(app.getPath("temp"), "spaced-breakout-bundle.zip");
+  cancelFlag = false;
   const onProg = (v) => win?.webContents.send("progress", v);
-  const r = await downloadFile(cfg.bundle_url, tmp, onProg);
+  const r = await downloadFile(cfg.bundle_url, tmp, onProg, () => cancelFlag);
   const m = shippedManifest();
   const st = await fsp.stat(tmp);
   if (m.bundle_size && st.size !== m.bundle_size) throw new Error("size-mismatch");
