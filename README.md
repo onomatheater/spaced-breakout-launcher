@@ -1,6 +1,6 @@
 # spaced-breakout-launcher
 
-Private launcher for **Spaced Breakout** v1.2 (Factorio 2.0.77, K2SO + planets, 40 mods).
+Private launcher for **SPACED OUTBREAK** v1.2 (Factorio 2.0.77, K2SO + planets, 40 mods).
 
 Do NOT publish the bundle URL. Repo is public, bundle stays on private VPS/static.
 

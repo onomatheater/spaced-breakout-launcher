@@ -201,6 +201,9 @@ ipcMain.handle("get-state", async () => {
     modsDir: await resolveModsDir(cfg),
     gameExe: resolveGameExe(cfg),
     hasBundleUrl: Boolean(cfg.bundle_url),
+    bundle_url: cfg.bundle_url || "",
+    manifest_url: cfg.manifest_url || "",
+    credits_url: cfg.credits_url || "",
     lang: cfg.lang || "ru",
   };
 });

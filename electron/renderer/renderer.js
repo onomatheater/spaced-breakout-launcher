@@ -6,6 +6,14 @@ const T = {
     playSt: "Запускаю Factorio...", noExe: "Не найден factorio.exe — укажи путь в Настройках.",
     save: "Сохранить", find: "Найти автоматически", pickExe: "Выбрать вручную", pickMods: "Выбрать",
     search: "Поиск мода...", main: "Главная", settings: "Настройки", credits: "Credits",
+    update: "Проверить обновления", upToDate: "Обновлений нет — сборка актуальна.",
+    updateAvail: "Доступно обновление сборки — жми Скачать.", checking: "Проверяю обновления...",
+    errNoBundle: "Нет bundle_url — впиши ссылку в Настройках.",
+    errSize: "Скачанный файл не того размера — попробуй скачать еще раз.",
+    errBundleSha: "SHA1 бандла не сошлась — файл битый, качай заново.",
+    errCancelled: "Скачивание отменено.",
+    errNet: "Ошибка сети: ",
+    errFile: "Проверка не прошла: ",
   },
   en: {
     download: "Download / update pack", play: "Play", folder: "Mods folder", cancel: "Cancel",
@@ -14,8 +22,27 @@ const T = {
     playSt: "Launching Factorio...", noExe: "factorio.exe not found — set the path in Settings.",
     save: "Save", find: "Auto-detect", pickExe: "Browse", pickMods: "Browse",
     search: "Search mods...", main: "Main", settings: "Settings", credits: "Credits",
+    update: "Check for updates", upToDate: "Up to date — no new bundle.",
+    updateAvail: "New bundle available — hit Download.", checking: "Checking for updates...",
+    errNoBundle: "No bundle_url — set it in Settings.",
+    errSize: "Downloaded file has wrong size — try downloading again.",
+    errBundleSha: "Bundle SHA1 mismatch — file is corrupt, download again.",
+    errCancelled: "Download cancelled.",
+    errNet: "Network error: ",
+    errFile: "Verification failed: ",
   },
 };
+
+function errMsg(e) {
+  const m = String((e && e.message) || e || "");
+  if (m.includes("no-bundle-url")) return tr("errNoBundle");
+  if (m.includes("size-mismatch")) return tr("errSize");
+  if (m.includes("bundle-sha1-mismatch")) return tr("errBundleSha");
+  if (m.includes("cancelled")) return tr("errCancelled");
+  if (m.includes("SHA1 mismatch")) return tr("errFile") + m;
+  if (m.includes("HTTP")) return tr("errNet") + m;
+  return m;
+}
 let lang = "ru";
 let state = null;
 const $ = (id) => document.getElementById(id);
@@ -27,6 +54,7 @@ function applyLang() {
   document.querySelectorAll("nav button").forEach((b) => (b.textContent = tr(b.dataset.view)));
   $("btnDl").textContent = tr("download");
   $("btnPlay").textContent = tr("play");
+  $("btnUpd").textContent = tr("update");
   $("btnFolder").textContent = tr("folder");
   $("btnCancel").textContent = tr("cancel");
   $("btnSave").textContent = tr("save");
@@ -58,6 +86,9 @@ async function refresh() {
   applyLang();
   $("gamePath").textContent = state.gameExe || tr("noExe");
   $("modsPath").textContent = state.modsDir;
+  $("inpBundle").value = state.bundle_url || "";
+  $("inpManifest").value = state.manifest_url || "";
+  $("inpCredits").value = state.credits_url || "";
   if (!state.hasBundleUrl) status(tr("needCfg"));
   else if (!status().textContent) status(tr("idle"));
 }
@@ -73,7 +104,20 @@ $("btnDl").onclick = async () => {
     status(tr("done"));
     await refresh();
   } catch (e) {
-    status(String(e.message || e));
+    status(errMsg(e));
+  } finally {
+    setBusy(false);
+  }
+};
+$("btnUpd").onclick = async () => {
+  setBusy(true);
+  try {
+    status(tr("checking"));
+    const r = await window.api.checkUpdate();
+    if (r.reason === "no-manifest-url") return status(tr("needCfg"));
+    status(r.update ? `${tr("updateAvail")} (v${r.remote})` : tr("upToDate"));
+  } catch (e) {
+    status(errMsg(e));
   } finally {
     setBusy(false);
   }
@@ -83,8 +127,8 @@ $("btnPlay").onclick = async () => {
   try {
     await window.api.play();
     status(tr("playSt"));
-  } catch {
-    status(tr("noExe"));
+  } catch (e) {
+    status(state.gameExe ? errMsg(e) : tr("noExe"));
   }
 };
 $("btnFolder").onclick = () => window.api.openModsDir();
@@ -95,23 +139,27 @@ $("btnFind").onclick = async () => {
   await refresh();
 };
 $("btnSave").onclick = async () => {
-  await window.api.saveSettings({ bundle_url: $("inpBundle").value.trim(), manifest_url: $("inpManifest").value.trim() });
+  await window.api.saveSettings({ bundle_url: $("inpBundle").value.trim(), manifest_url: $("inpManifest").value.trim(), credits_url: $("inpCredits").value.trim() });
   await refresh();
 };
 
 function setBusy(b) {
-  $("btnDl").disabled = b;
-  $("btnPlay").disabled = b;
+  document.querySelectorAll("button").forEach((x) => (x.disabled = b));
+  $("lang").disabled = b;
   $("btnCancel").disabled = !b;
-  if (!b) $("bar").value = 0;
+  if (!b) {
+    $("bar").value = 0;
+    $("barV").value = 0;
+  }
 }
 
 window.api.onProgress((v) => {
-  $("bar").value = v.ratio || 0;
   if (v.phase === "download" && v.total) {
     const mb = (n) => (n / 1048576).toFixed(0) + " MB";
+    $("bar").value = v.ratio || 0;
     status(`${tr("dl")} ${mb(v.got)} / ${mb(v.total)}`);
   } else if (v.phase === "verify") {
+    $("barV").value = v.ratio || 0;
     status(`${tr("verify")} ${v.file || ""}`);
   }
 });
