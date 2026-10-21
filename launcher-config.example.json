@@ -2,5 +2,6 @@
   "_comment": "PRIVATE file, never commit. Copy to launcher-config.json and fill in.",
   "bundle_url": "https://YOUR-VPS-OR-STATIC-HOST/SPACED-BREAKOUT-v1.2.zip",
   "manifest_url": "",
+  "credits_url": "",
   "factorio_exe": ""
 }
