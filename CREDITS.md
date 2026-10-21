@@ -28,11 +28,3 @@ Factorio 2.0.77, private launcher. All zips unmodified, licenses inside zips.
 | tenebris-prime | 1.3.10 | Big_J, MeteorSwarm | MIT | https://mods.factorio.com/mod/tenebris-prime |
 | sb-pack-badge | 1.0.0 | onomatheater (own mod, pack-only) | MIT | https://github.com/onomatheater/sb-pack-badge |
 | alien-biomes-graphics / space-exploration-graphics / space-exploration-graphics-4 | — | Earendel | FMLDOL (mod packs allowed) | portal + https://discord.gg/earendel + https://www.patreon.com/earendel |
-
-## NOT in bundle — install separately
-
-| Mod | Version | Author | License | Link |
-|---|---|---|---|---|
-| Dark Night (DarkNight) | 2.0.0 | Skrundz | Skrunix (no redistribution, personal use only) | https://mods.factorio.com/mod/DarkNight / https://git.skrundz.dev/skrundztorio/DarkNight |
-
-Ask Skrundz for written permission before adding to VPS bundle.

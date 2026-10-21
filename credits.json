@@ -525,18 +525,5 @@
       "own": false
     }
   ],
-  "not_in_bundle": [
-    {
-      "mod": "DarkNight",
-      "version": "2.0.0",
-      "author": "Skrundz",
-      "license": "Skrunix (no redistribution, personal use only)",
-      "license_flag": "excluded",
-      "portal_url": "https://mods.factorio.com/mod/DarkNight",
-      "repo_url": "https://git.skrundz.dev/skrundztorio/DarkNight",
-      "discord_url": null,
-      "in_bundle": false,
-      "own": false
-    }
-  ]
+  "not_in_bundle": []
 }
