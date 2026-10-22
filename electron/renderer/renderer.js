@@ -49,6 +49,15 @@ const $ = (id) => document.getElementById(id);
 
 function tr(k) { return T[lang][k] ?? k; }
 function status(s) { $("status").textContent = s; }
+function guarded(fn) {
+  return (...a) => {
+    try {
+      return Promise.resolve(fn(...a)).catch((e) => status(errMsg(e)));
+    } catch (e) {
+      status(errMsg(e));
+    }
+  };
+}
 
 function applyLang() {
   document.querySelectorAll("nav button").forEach((b) => (b.textContent = tr(b.dataset.view)));
@@ -62,22 +71,23 @@ function applyLang() {
   $("btnPickExe").textContent = tr("pickExe");
   $("btnPickMods").textContent = tr("pickMods");
   $("q").placeholder = tr("search");
-  $("subtitle").textContent = state
-    ? `Factorio ${state.manifest.factorio_version} · v${state.manifest.version} · ${state.manifest.count} mods`
+  const m = state && state.manifest;
+  $("subtitle").textContent = m
+    ? `Factorio ${m.factorio_version} · v${m.version} · ${m.count} mods`
     : "";
 }
 
 function show(view) {
   document.querySelectorAll(".view").forEach((v) => v.classList.add("hidden"));
   $("view-" + view).classList.remove("hidden");
-  if (view === "credits") loadCredits();
+  if (view === "credits") loadCredits().catch((e) => status(errMsg(e)));
 }
-document.querySelectorAll("nav button").forEach((b) => (b.onclick = () => show(b.dataset.view)));
-$("lang").onchange = async (e) => {
+document.querySelectorAll("nav button").forEach((b) => (b.onclick = guarded(async () => show(b.dataset.view))));
+$("lang").onchange = guarded(async (e) => {
   lang = e.target.value;
   await window.api.saveSettings({ lang });
   applyLang();
-};
+});
 
 async function refresh() {
   state = await window.api.getState();
@@ -90,7 +100,7 @@ async function refresh() {
   $("inpManifest").value = state.manifest_url || "";
   $("inpCredits").value = state.credits_url || "";
   if (!state.hasBundleUrl) status(tr("needCfg"));
-  else if (!status().textContent) status(tr("idle"));
+  else if (!$("status").textContent) status(tr("idle"));
 }
 
 $("btnDl").onclick = async () => {
@@ -122,7 +132,7 @@ $("btnUpd").onclick = async () => {
     setBusy(false);
   }
 };
-$("btnCancel").onclick = () => window.api.cancelDownload();
+$("btnCancel").onclick = guarded(() => window.api.cancelDownload());
 $("btnPlay").onclick = async () => {
   try {
     await window.api.play();
@@ -131,17 +141,17 @@ $("btnPlay").onclick = async () => {
     status(state.gameExe ? errMsg(e) : tr("noExe"));
   }
 };
-$("btnFolder").onclick = () => window.api.openModsDir();
-$("btnPickExe").onclick = async () => { await window.api.pickGameExe(); await refresh(); };
-$("btnPickMods").onclick = async () => { await window.api.pickModsDir(); await refresh(); };
-$("btnFind").onclick = async () => {
+$("btnFolder").onclick = guarded(() => window.api.openModsDir());
+$("btnPickExe").onclick = guarded(async () => { await window.api.pickGameExe(); await refresh(); });
+$("btnPickMods").onclick = guarded(async () => { await window.api.pickModsDir(); await refresh(); });
+$("btnFind").onclick = guarded(async () => {
   await window.api.saveSettings({ factorio_exe: "" });
   await refresh();
-};
-$("btnSave").onclick = async () => {
+});
+$("btnSave").onclick = guarded(async () => {
   await window.api.saveSettings({ bundle_url: $("inpBundle").value.trim(), manifest_url: $("inpManifest").value.trim(), credits_url: $("inpCredits").value.trim() });
   await refresh();
-};
+});
 
 function setBusy(b) {
   document.querySelectorAll("button").forEach((x) => (x.disabled = b));
@@ -170,6 +180,7 @@ window.api.onStatus((v) => {
 
 async function loadCredits() {
   const c = await window.api.getCredits();
+  const mods = Array.isArray(c.mods) ? c.mods : [];
   const q = ($("q").value || "").toLowerCase();
   const box = $("credits");
   box.innerHTML = "";
@@ -189,12 +200,12 @@ async function loadCredits() {
       a.onclick = (e) => {
         e.preventDefault();
         const href = a.getAttribute("href");
-        if (href) window.api.openUrl(href).catch(() => {});
+        if (href) window.api.openUrl(href).catch((e) => status(errMsg(e)));
       };
     });
     return d;
   };
-  c.mods
+  mods
     .filter((m) => (m.mod + " " + m.author).toLowerCase().includes(q))
     .forEach((m) => box.appendChild(card(m)));
   if (c.not_in_bundle?.length) {
@@ -204,6 +215,6 @@ async function loadCredits() {
     c.not_in_bundle.forEach((m) => box.appendChild(card(m)));
   }
 }
-$("q").oninput = loadCredits;
+$("q").oninput = guarded(loadCredits);
 
-refresh();
+refresh().catch((e) => status(errMsg(e)));
