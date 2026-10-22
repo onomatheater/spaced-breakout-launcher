@@ -26,5 +26,5 @@ Factorio 2.0.77, private launcher. All zips unmodified, licenses inside zips.
 | doodle | 0.1.0 | djfariel | MIT | https://mods.factorio.com/mod/doodle |
 | extensible-map-overlay-framework | 0.1.0 | djfariel | MIT | https://mods.factorio.com/mod/extensible-map-overlay-framework (required by doodle) |
 | tenebris-prime | 1.3.10 | Big_J, MeteorSwarm | MIT | https://mods.factorio.com/mod/tenebris-prime |
-| spaced-breakout | 1.2.0 | onomatheater (own mod, pack-only meta-mod) | MIT | https://github.com/onomatheater/Spaced-Outbreak/tree/main/pack-mods/spaced-breakout |
+| spaced-breakout | 1.2.0 | onomatheater (own mod, pack-only meta-mod) | MIT | https://mods.factorio.com/mod/spaced-breakout |
 | alien-biomes-graphics / space-exploration-graphics / space-exploration-graphics-4 | — | Earendel | FMLDOL (mod packs allowed) | portal + https://discord.gg/earendel + https://www.patreon.com/earendel |
